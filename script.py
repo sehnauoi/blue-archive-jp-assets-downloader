@@ -21,8 +21,10 @@ BA_JP_MEDIA_DIR = os.path.join(os.path.dirname(__file__), 'ba_jp_media')
 
 BA_JP_VERSION_METADATA_TEMPLATE = "https://yostar-serverinfo.bluearchiveyostar.com/{}.json"
 
-BA_JP_ANDROID_BUNDLE_TEMPLATE = '{}/Android/bundleDownloadInfo.json'
-BA_JP_IOS_BUNDLE_TEMPLATE = '{}/iOS/bundleDownloadInfo.json'
+BA_JP_ANDROID_BUNDLE_DOWNLOAD_INFO_TEMPLATE = '{}/Android/bundleDownloadInfo.json'
+BA_JP_ANDROID_BUNDLE_TEMPLATE = '{}/Android/'
+BA_JP_IOS_BUNDLE_DOWNLOAD_INFO_TEMPLATE = '{}/iOS/bundleDownloadInfo.json'
+BA_JP_IOS_BUNDLE_TEMPLATE = '{}/iOS/'
 BA_JP_MEDIA_CATALOG_TEMPLATE = '{}/MediaResources/MediaCatalog.json'
 BA_JP_MEDIA_BASEURL_TEMPLATE = '{}/MediaResources/'
 
@@ -86,7 +88,7 @@ logger.info('Current version assets base url: %s',
 #         ...
 #     ]
 # }
-bundles_to_download = requests.get(BA_JP_ANDROID_BUNDLE_TEMPLATE.format(
+bundles_to_download = requests.get(BA_JP_ANDROID_BUNDLE_DOWNLOAD_INFO_TEMPLATE.format(
     current_version_assets_base_url)).json()['BundleFiles']
 download_ba_jp_bundle(BA_JP_ANDROID_BUNDLE_TEMPLATE.format(
     current_version_assets_base_url), bundles_to_download, BA_JP_BUNDLES_DIR)
