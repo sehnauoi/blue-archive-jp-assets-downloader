@@ -47,6 +47,10 @@ def download_ba_apk():
                 version_length = len('x.xx.xxxxxx')
                 version = data[version_pos:version_pos + version_length].decode('utf-8')
                 print('Downloaded version:', version)
+                UNITY_VERSION_START_POS = 0x30
+                # read till 0x00
+                unity_version = data[UNITY_VERSION_START_POS:data.find(b'\x00', UNITY_VERSION_START_POS)].decode('utf-8')
+                print('Unity version used:', unity_version)
     
     return version, apk_data
 
