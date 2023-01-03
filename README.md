@@ -7,11 +7,21 @@ Assets downloader for Blue Archive (ブルーアーカイブ), a small project t
 python3 -m pip install requests
 ```
 
+## 执行
+
+```bash
+python3 ./script.py
+```
+
 ## 存储
 
 `ba_jp_bundles` 文件夹是 Unity Bundle (AssetBundles?)
 
 `ba_jp_media` 文件夹是媒体文件（过场 CG，音乐等）
+
+## 辅助工具
+
+`doanload_latest_apk.py`: 从 QooApp 下载其最新版本，并与官方做比照。修改自 [Blue-Archive---Asset-Downloader](https://github.com/K0lb3/Blue-Archive---Asset-Downloader)
 
 ## 💈
 
