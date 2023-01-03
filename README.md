@@ -23,6 +23,14 @@ python3 ./script.py
 
 `doanload_latest_apk.py`: 从 QooApp 下载其最新版本，并与官方做比照。修改自 [Blue-Archive---Asset-Downloader](https://github.com/K0lb3/Blue-Archive---Asset-Downloader)
 
+```bash
+> $ python3 ./download_latest_apk.py                                                                                                                      
+Online version: 1.26.183658
+Downliading latest apk from QooApp
+Downloaded version: 1.26.183658
+Unity version used: 2021.3.12f1
+```
+
 ## 💈
 
 嘿嘿 爱丽丝 嘿嘿
