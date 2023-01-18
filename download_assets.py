@@ -5,7 +5,7 @@ import os
 # set current version from environ
 current_version = os.environ.get('BA_JP_CURRENT_VERSION', None)
 if not current_version:
-    current_version = 'r50_d561ioydiypbrigv2h6a'
+    current_version = 'r51_my70ojfz73udm2aylral'
 
 # set up logging
 logging.basicConfig(level=logging.INFO,
@@ -43,6 +43,8 @@ def download_ba_jp_bundle(bundle_base_url: str, bundles: list, output_dir: str):
             data = session.get(url).content
             with open(bundle_local_path, "wb") as f:
                 f.write(data)
+            if len(data) != bundle["Size"]:
+                logger.warn(f'Size mismatch for {bundle_name}: {len(data)}, should be {bundle["Size"]}')
             logger.info(f'{bundle_name} written to {bundle_local_path}')
         else:
             logger.info(f'Skipping {bundle_name} as it already exists')

@@ -10,7 +10,7 @@ python3 -m pip install requests
 ## 执行
 
 ```bash
-python3 ./script.py
+python3 ./download_assets.py
 ```
 
 ## 存储
