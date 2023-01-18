@@ -1,5 +1,5 @@
 # blue-archive-jp-assets-downloader
-Assets downloader for Blue Archive (ブルーアーカイブ), a small project that downloads all assets of Blue Archive (JP Version) . Currently no unpack functionality!
+Assets downloader for Blue Archive (ブルーアーカイブ), a small project that downloads all assets of Blue Archive (JP Version) .
 
 ## 先决库
 
@@ -21,6 +21,8 @@ python3 ./download_assets.py
 
 ## 辅助工具
 
+### 下载日服 APK
+
 `download_latest_apk.py`: 从 QooApp 下载其最新版本，并与官方做比照。修改自 [Blue-Archive---Asset-Downloader](https://github.com/K0lb3/Blue-Archive---Asset-Downloader)
 
 ```bash
@@ -29,6 +31,16 @@ Online version: 1.26.183658
 Downliading latest apk from QooApp
 Downloaded version: 1.26.183658
 Unity version used: 2021.3.12f1
+```
+
+### 解包 assets
+
+* `extract_bundles.py`: 解包由此下载脚本下载的 bundles，并默认存储于 `extract_bundles` 文件夹。需要 `UnityPy==1.7.21`。建议在 Linux 环境下运行（WSL 也可以）。从 `UnityPy` [样例](https://github.com/K0lb3/UnityPy#example)修改而来
+
+* 默认解包 `Texture2D`，`Sprite`，`TextAsset`。这些类型的资源足够运行（包里的）Spine 动画
+
+```bash
+> $ python3 ./extract_bundles.py                                                                                                                      
 ```
 
 ## 💈

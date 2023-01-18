@@ -1,0 +1,2 @@
+requests
+UnityPy==1.7.21
