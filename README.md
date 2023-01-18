@@ -21,7 +21,7 @@ python3 ./download_assets.py
 
 ## 辅助工具
 
-`doanload_latest_apk.py`: 从 QooApp 下载其最新版本，并与官方做比照。修改自 [Blue-Archive---Asset-Downloader](https://github.com/K0lb3/Blue-Archive---Asset-Downloader)
+`download_latest_apk.py`: 从 QooApp 下载其最新版本，并与官方做比照。修改自 [Blue-Archive---Asset-Downloader](https://github.com/K0lb3/Blue-Archive---Asset-Downloader)
 
 ```bash
 > $ python3 ./download_latest_apk.py                                                                                                                      
