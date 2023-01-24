@@ -1,3 +1,4 @@
+from typing import Tuple
 import requests
 import logging
 import os
@@ -33,7 +34,15 @@ os.makedirs(BA_JP_BUNDLES_DIR, exist_ok=True)
 os.makedirs(BA_JP_MEDIA_DIR, exist_ok=True)
 
 
-def download_ba_jp_bundle(bundle_base_url: str, bundles: list, output_dir: str):
+def download_ba_jp_bundle(bundle_base_url: str, bundles: list, output_dir: str) -> Tuple[int, int, int]:
+    '''
+    returns:
+        bundle count given, 
+        downloaded,
+        skipped
+    '''
+    downloaded_count = 0
+    skipped_count = 0
     for bundle in bundles:
         bundle_name = bundle['Name']
         url = f'{bundle_base_url}{bundle_name}'
@@ -46,11 +55,22 @@ def download_ba_jp_bundle(bundle_base_url: str, bundles: list, output_dir: str):
             if len(data) != bundle["Size"]:
                 logger.warn(f'Size mismatch for {bundle_name}: {len(data)}, should be {bundle["Size"]}')
             logger.info(f'{bundle_name} written to {bundle_local_path}')
+            downloaded_count += 1
         else:
             logger.info(f'Skipping {bundle_name} as it already exists')
+            skipped_count += 1
+    return len(bundles), downloaded_count, skipped_count
 
 
-def download_ba_jp_media(media_base_url: str, media_list: dict, output_dir: str):
+def download_ba_jp_media(media_base_url: str, media_list: dict, output_dir: str) -> Tuple[int, int, int]:
+    '''
+    returns:
+        media count given, 
+        downloaded,
+        skipped
+    '''
+    downloaded_count = 0
+    skipped_count = 0
     for media_key in media_list:
         media = media_list[media_key]
         media_name = media['fileName']
@@ -69,13 +89,16 @@ def download_ba_jp_media(media_base_url: str, media_list: dict, output_dir: str)
             with open(media_local_path, "wb") as f:
                 f.write(data)
             logger.info(f'{media_name} written to {media_local_path}')
+            downloaded_count += 1
         else:
             logger.info(f'Skipping {media_name} as it already exists')
+            skipped_count += 1
+    return len(media_list), downloaded_count, skipped_count
 
 
 current_version_assets_base_url = requests.get(BA_JP_VERSION_METADATA_TEMPLATE.format(current_version)).json()[
     "ConnectionGroups"][0]['OverrideConnectionGroups'][-1]['AddressablesCatalogUrlRoot']
-logger.info('Current version assets base url: %s',
+logger.info('Current version assets base url (AddressablesCatalogUrlRoot): %s',
             current_version_assets_base_url)
 
 # Default to Android
@@ -90,9 +113,14 @@ logger.info('Current version assets base url: %s',
 #         ...
 #     ]
 # }
-bundles_to_download = requests.get(BA_JP_ANDROID_BUNDLE_DOWNLOAD_INFO_TEMPLATE.format(
-    current_version_assets_base_url)).json()['BundleFiles']
-download_ba_jp_bundle(BA_JP_ANDROID_BUNDLE_TEMPLATE.format(
+try:
+    bundles_to_download = requests.get(BA_JP_ANDROID_BUNDLE_DOWNLOAD_INFO_TEMPLATE.format(
+        current_version_assets_base_url)).json()['BundleFiles']
+except:
+    # should check if the status code is 403
+    logging.critical('This AddressablesCatalog is not accessible at this time.')
+    exit()
+total_bundle_count, downloaded_bundle_count, skipped_bundle_count = download_ba_jp_bundle(BA_JP_ANDROID_BUNDLE_TEMPLATE.format(
     current_version_assets_base_url), bundles_to_download, BA_JP_BUNDLES_DIR)
 
 
@@ -110,7 +138,17 @@ download_ba_jp_bundle(BA_JP_ANDROID_BUNDLE_TEMPLATE.format(
 #         ...
 #     }
 # }
-media_to_download = requests.get(BA_JP_MEDIA_CATALOG_TEMPLATE.format(
-    current_version_assets_base_url)).json()['Table']
-download_ba_jp_media(BA_JP_MEDIA_BASEURL_TEMPLATE.format(
+try:
+    media_to_download = requests.get(BA_JP_MEDIA_CATALOG_TEMPLATE.format(
+        current_version_assets_base_url)).json()['Table']
+except:
+    # should check if the status code is 403
+    logging.critical('The MediaCatalog is not accessible at this time.')
+    exit()
+
+total_media_count, downloaded_media_count, skipped_media_count = download_ba_jp_media(BA_JP_MEDIA_BASEURL_TEMPLATE.format(
     current_version_assets_base_url), media_to_download, BA_JP_MEDIA_DIR)
+
+logging.info('Download complete.')
+logging.info(f'Bundle: {total_bundle_count} total, {downloaded_bundle_count} downloaded, {skipped_bundle_count} skipped.')
+logging.info(f'Media: {total_media_count} total, {downloaded_media_count} downloaded, {skipped_media_count} skipped.')
