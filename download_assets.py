@@ -120,7 +120,7 @@ try:
         current_version_assets_base_url), bundles_to_download, BA_JP_BUNDLES_DIR)
 except:
     # should check if the status code is 403
-    logging.warning(f'Provided AddressablesCatalog ({BA_JP_ANDROID_BUNDLE_TEMPLATE.format(current_version_assets_base_url)}) is not accessible at this time.')
+    logger.warning(f'Provided AddressablesCatalog ({BA_JP_ANDROID_BUNDLE_TEMPLATE.format(current_version_assets_base_url)}) is not accessible at this time.')
 
 
 
@@ -145,10 +145,10 @@ try:
         current_version_assets_base_url), media_to_download, BA_JP_MEDIA_DIR)
 except:
     # should check if the status code is 403
-    logging.warning(f'Provided MediaCatalog ({BA_JP_MEDIA_BASEURL_TEMPLATE.format(current_version_assets_base_url)}) is not accessible at this time.')
+    logger.warning(f'Provided MediaCatalog ({BA_JP_MEDIA_BASEURL_TEMPLATE.format(current_version_assets_base_url)}) is not accessible at this time.')
 
-logging.info('Script finished.')
+logger.info('Script finished.')
 if globals().get('total_bundle_count'):
-    logging.info(f'Bundle: {total_bundle_count} total, {downloaded_bundle_count} downloaded, {skipped_bundle_count} skipped.')
+    logger.info(f'Bundle: {total_bundle_count} total, {downloaded_bundle_count} downloaded, {skipped_bundle_count} skipped.')
 if globals().get('total_media_count'):
-    logging.info(f'Media: {total_media_count} total, {downloaded_media_count} downloaded, {skipped_media_count} skipped.')
+    logger.info(f'Media: {total_media_count} total, {downloaded_media_count} downloaded, {skipped_media_count} skipped.')
