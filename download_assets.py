@@ -116,12 +116,12 @@ logger.info('Current version assets base url (AddressablesCatalogUrlRoot): %s',
 try:
     bundles_to_download = requests.get(BA_JP_ANDROID_BUNDLE_DOWNLOAD_INFO_TEMPLATE.format(
         current_version_assets_base_url)).json()['BundleFiles']
+    total_bundle_count, downloaded_bundle_count, skipped_bundle_count = download_ba_jp_bundle(BA_JP_ANDROID_BUNDLE_TEMPLATE.format(
+        current_version_assets_base_url), bundles_to_download, BA_JP_BUNDLES_DIR)
 except:
     # should check if the status code is 403
-    logging.critical('This AddressablesCatalog is not accessible at this time.')
-    exit()
-total_bundle_count, downloaded_bundle_count, skipped_bundle_count = download_ba_jp_bundle(BA_JP_ANDROID_BUNDLE_TEMPLATE.format(
-    current_version_assets_base_url), bundles_to_download, BA_JP_BUNDLES_DIR)
+    logging.warning(f'Provided AddressablesCatalog ({BA_JP_ANDROID_BUNDLE_TEMPLATE.format(current_version_assets_base_url)}) is not accessible at this time.')
+
 
 
 # {
@@ -141,14 +141,14 @@ total_bundle_count, downloaded_bundle_count, skipped_bundle_count = download_ba_
 try:
     media_to_download = requests.get(BA_JP_MEDIA_CATALOG_TEMPLATE.format(
         current_version_assets_base_url)).json()['Table']
+    total_media_count, downloaded_media_count, skipped_media_count = download_ba_jp_media(BA_JP_MEDIA_BASEURL_TEMPLATE.format(
+        current_version_assets_base_url), media_to_download, BA_JP_MEDIA_DIR)
 except:
     # should check if the status code is 403
-    logging.critical('The MediaCatalog is not accessible at this time.')
-    exit()
+    logging.warning(f'Provided MediaCatalog ({BA_JP_MEDIA_BASEURL_TEMPLATE.format(current_version_assets_base_url)}) is not accessible at this time.')
 
-total_media_count, downloaded_media_count, skipped_media_count = download_ba_jp_media(BA_JP_MEDIA_BASEURL_TEMPLATE.format(
-    current_version_assets_base_url), media_to_download, BA_JP_MEDIA_DIR)
-
-logging.info('Download complete.')
-logging.info(f'Bundle: {total_bundle_count} total, {downloaded_bundle_count} downloaded, {skipped_bundle_count} skipped.')
-logging.info(f'Media: {total_media_count} total, {downloaded_media_count} downloaded, {skipped_media_count} skipped.')
+logging.info('Script finished.')
+if globals().get('total_bundle_count'):
+    logging.info(f'Bundle: {total_bundle_count} total, {downloaded_bundle_count} downloaded, {skipped_bundle_count} skipped.')
+if globals().get('total_media_count'):
+    logging.info(f'Media: {total_media_count} total, {downloaded_media_count} downloaded, {skipped_media_count} skipped.')

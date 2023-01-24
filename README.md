@@ -13,6 +13,16 @@ python3 -m pip install requests
 python3 ./download_assets.py
 ```
 
+### 服务器维护时 (资源不可达) 可能会有的提示
+
+```pwsh
+$ python .\download_assets.py
+2023-01-24 16:08:28,133 - __main__.<module> - INFO - Current version assets base url (AddressablesCatalogUrlRoot): https://prod-clientpatch.bluearchiveyostar.com/r52_1_27_uulekwyjhzir122lpbrw_2
+2023-01-24 16:08:28,403 - root.<module> - WARNING - Provided AddressablesCatalog (https://prod-clientpatch.bluearchiveyostar.com/r52_1_27_uulekwyjhzir122lpbrw_2/Android/) is not accessible at this time.
+2023-01-24 16:08:28,605 - root.<module> - WARNING - Provided MediaCatalog (https://prod-clientpatch.bluearchiveyostar.com/r52_1_27_uulekwyjhzir122lpbrw_2/MediaResources/) is not accessible at this time.
+2023-01-24 16:08:28,605 - root.<module> - INFO - Script finished.
+```
+
 ## 存储
 
 `ba_jp_bundles` 文件夹是 Unity Bundle (AssetBundles?)
