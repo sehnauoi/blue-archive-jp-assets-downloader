@@ -1,6 +1,10 @@
 APP_ID = "com.YostarJP.BlueArchive"
 
-import os
+import logging
+# set up logging
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(name)s.%(funcName)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 from urllib.request import urlopen, Request
 from urllib.parse import urlencode
@@ -29,7 +33,7 @@ def download_raw_QooApp_apk(package_id: str) -> bytes:
     return data
 
 def download_ba_apk():
-    print("Downliading latest apk from QooApp")
+    logging.info("downloading latest apk from QooApp")
     apk_data = download_raw_QooApp_apk(APP_ID)
     version = None
     VERSION_MAGIC_PREFIX_BYTES = b'\x01\x01\x01\x01\x01\x00\x00\x00\x0B\x00\x00\x00'
@@ -55,6 +59,7 @@ def download_ba_apk():
     return version, apk_data
 
 def get_latest_version() -> str:
+    logging.info('fetching lastest version from yostar server')
     url = 'https://prod-noticeindex.bluearchiveyostar.com/prod/index.json'
     res = urlopen(
         Request(
@@ -65,11 +70,11 @@ def get_latest_version() -> str:
     return json.load(urlopen(res.url))['LatestClientVersion']
 
 online_latest_version = get_latest_version()
-print('Online version:', online_latest_version)
+logging.info(f'Online version: {online_latest_version}')
 version, raw_apk_data = download_ba_apk()
 with open(f"{APP_ID}-{version if version else 'current'}.apk", "wb") as f:
     f.write(raw_apk_data)
 
 if version != online_latest_version:
-    print('Warning: version mismatch')
+    logging.warning('version mismatch')
 
