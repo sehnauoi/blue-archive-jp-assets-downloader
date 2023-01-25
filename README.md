@@ -13,6 +13,16 @@ python3 -m pip install requests
 python3 ./download_assets.py
 ```
 
+### 全部跳过时的提示
+
+```pwsh
+$ python .\download_assets.py
+...
+2023-01-25 11:49:19,149 - __main__.<module> - INFO - Script finished.
+2023-01-25 11:49:19,149 - __main__.<module> - INFO - Bundle: 3027 total, 0 downloaded, 3027 skipped.
+2023-01-25 11:49:19,149 - __main__.<module> - INFO - Media: 11251 total, 0 downloaded, 11251 skipped.
+```
+
 ### 服务器维护时 (资源不可达) 可能会有的提示
 
 ```pwsh
