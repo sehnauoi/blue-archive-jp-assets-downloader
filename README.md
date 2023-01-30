@@ -53,6 +53,20 @@ Downloaded version: 1.26.183658
 Unity version used: 2021.3.12f1
 ```
 
+### 下载日服 APK 对应的 OBB
+
+`download_latest_obb.py`: 从 QooApp 下载其最新版本的 OBB。修改自 [apk_patcher](https://github.com/UnknownCollections/apk_patcher/blob/master/apk_patcher/tools/qooapp.py)
+
+```pwsh
+python .\download_latest_obb.py
+2023-01-30 22:31:13,947 - <class '__main__.QooAppStore'>.0dca010b76e7e353.__init__ - INFO - Initializing QooAppStore with device_id 0dca010b76e7e353
+2023-01-30 22:31:13,947 - <class '__main__.QooAppStore'>.0dca010b76e7e353.generate_token - INFO - Requesting QooAppStore token...
+2023-01-30 22:31:16,341 - <class '__main__.QooAppStore'>.0dca010b76e7e353.generate_token - INFO - Get QooAppStore token: cb5f55eddf60ca5011c88c52d25c02e3a55d3e54
+2023-01-30 22:31:16,342 - <class '__main__.QooAppStore'>.0dca010b76e7e353.__init__ - INFO - Initialized QooAppStore with token cb5f55eddf60ca5011c88c52d25c02e3a55d3e54
+2023-01-30 22:31:18,849 - __main__.<module> - INFO - Downloading OBB file from https://d.qoo-apk.com/12252/obb/main.189790.com.YostarJP.BlueArchive.obb to main.189790.com.YostarJP.BlueArchive.obb
+2023-01-30 22:31:36,672 - __main__.<module> - INFO - Script finished. OBB file saved to main.189790.com.YostarJP.BlueArchive.obb
+```
+
 ### 解包 assets
 
 * `extract_bundles.py`: 解包由此下载脚本下载的 bundles，并默认存储于 `extract_bundles` 文件夹。需要 `UnityPy==1.7.21`。建议在 Linux 环境下运行（WSL 也可以）。从 `UnityPy` [样例](https://github.com/K0lb3/UnityPy#example)修改而来
