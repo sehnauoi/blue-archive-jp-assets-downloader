@@ -45,12 +45,13 @@ $ python .\download_assets.py
 
 `download_latest_apk.py`: 从 QooApp 下载其最新版本，并与官方做比照。修改自 [Blue-Archive---Asset-Downloader](https://github.com/K0lb3/Blue-Archive---Asset-Downloader)
 
-```bash
-> $ python3 ./download_latest_apk.py                                                                                                                      
-Online version: 1.26.183658
-Downliading latest apk from QooApp
-Downloaded version: 1.26.183658
-Unity version used: 2021.3.12f1
+```pwsh
+python .\download_latest_apk.py
+2023-01-31 13:55:22,903 - root.get_latest_version - INFO - fetching lastest version from yostar server
+2023-01-31 13:55:36,279 - root.<module> - INFO - Online version: 1.27.189790
+2023-01-31 13:55:36,280 - root.download_ba_apk - INFO - downloading latest apk from QooApp
+2023-01-31 13:56:00,321 - __main__.download_ba_apk - INFO - Downloaded version: 1.27.189790
+2023-01-31 13:56:00,321 - __main__.download_ba_apk - INFO - Unity version used: 2021.3.12f1
 ```
 
 ### 下载日服 APK 对应的 OBB
